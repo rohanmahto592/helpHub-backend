@@ -1,6 +1,13 @@
-const { PORT } = require("./constant")
+
+const dotenv = require("dotenv")
+dotenv.config()
 const express=require("express")
 const app=express()
+const connectDB = require("./config/db")
+
+connectDB().then(()=>{
+    console.log("connected to db");
+});
 
 
 
@@ -9,5 +16,5 @@ const app=express()
 
 
 
-const port=PORT??4000;
+const port = process.env.PORT || 4000;
 app.listen(port,()=>console.log(`listening on port ${port}`))
