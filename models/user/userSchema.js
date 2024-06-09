@@ -6,10 +6,6 @@ const UserSchema = new mongoose.Schema({
   phoneNumber: { type: string },
   password: { type: String, required: true },
   profileUrl: { type: string },
-  location: {
-    type: { type: String, default: "Point" },
-    coordinates: { type: [Number], required: true },
-  },
   currentLocation: {
     type: { type: String, default: "Point" },
     coordinates: { type: [Number], required: true },
