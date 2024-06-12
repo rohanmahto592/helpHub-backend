@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 
+
 const UserSchema = new mongoose.Schema({
   name: { type: String, required: true },
   email: { type: String, required: true, unique: true },
@@ -14,7 +15,5 @@ const UserSchema = new mongoose.Schema({
   registerAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
 });
-
-UserSchema.index({ location: "2dsphere" });
 UserSchema.index({ currentLocation: "2dsphere" });
 module.exports = mongoose.model("User", UserSchema);

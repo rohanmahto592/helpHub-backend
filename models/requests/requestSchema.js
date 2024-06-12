@@ -11,7 +11,7 @@ const RequestSchema = new mongoose.Schema({
     createdAt: { type: Date, default: Date.now },
     updatedAt:{ type: Date, default: Date.now }
   });
-  
+
   RequestSchema.index({ location: '2dsphere' });
   
   module.exports = mongoose.model('Request', RequestSchema);
