@@ -1,14 +1,14 @@
 const User = require('../models/user/userSchema');
 const { encryptPassword, verifyPassword, createToken, verifyToken } = require('../helper');
 exports.registerUser = async (req, res) => {
-    const { name, email, password, skills, location } = req.body;
+    const { name, email, password,phoneNumber, skills, location } = req.body;
     try {
       let user = await User.findOne({ email });
       if (user) {
         return res.status(400).json({ msg: 'User already exists' });
       }
       const hashedPassword = await encryptPassword(password);
-      user = new User({ name, email,  password: hashedPassword, skills, location });
+      user = new User({ name, email, phoneNumber,  password: hashedPassword, skills, currentLocation:location });
 
       await user.save();
 
@@ -51,7 +51,7 @@ exports.getUserById = async (req, res) => {
             }
           };
 exports.updateUser = async (req, res) => {
-            const { name, email, phoneNumber, profileUrl, currentLocation, isHelper } = req.body;
+            const { name, email, phoneNumber,skills, profileUrl, currentLocation, isHelper } = req.body;
           
             // Build user object
             const userFields = {};
@@ -60,7 +60,8 @@ exports.updateUser = async (req, res) => {
             if (phoneNumber) userFields.phoneNumber = phoneNumber;
             if (profileUrl) userFields.profileUrl = profileUrl;
             if (currentLocation) userFields.currentLocation = currentLocation;
-            if (isHelper !== undefined) userFields.isHelper = isHelper;
+            if (isHelper !== undefined) userFields.isHelper = isHelper; 
+            if(skills) userFields.skills=skills;
           
             try {
               let user = await User.findById(req.params.id);
